@@ -2,11 +2,13 @@
 #include <i3ipc-glib/i3ipc-glib.h>
 #include <stdio.h>
 #include <webkit2/webkit2.h>
+#include <unistd.h>
+#include <limits.h>
 
-const char BAR_URI[] = "file:///home/adam/Programming/C/bar9/ui/ui.html";
-const char WEB_EXT_DIR[] = "/home/adam/Programming/C/bar9/jsc/bin";
 const int BAR_W = 1920;
 const int BAR_H = 50;
+char bar_uri[PATH_MAX];
+char web_ext_dir[PATH_MAX];
 
 // Initialise web view
 static WebKitWebView *web_view_init() {
@@ -26,7 +28,7 @@ static WebKitWebView *web_view_init() {
 static void *initialize_web_extensions_cb(WebKitWebContext *context,
                                           gpointer user_data) {
   static guint32 unique_id = 0;
-  webkit_web_context_set_web_extensions_directory(context, WEB_EXT_DIR);
+  webkit_web_context_set_web_extensions_directory(context, web_ext_dir);
   webkit_web_context_set_web_extensions_initialization_user_data(
       context, g_variant_new_uint32(unique_id++));
 }
@@ -37,6 +39,11 @@ int main(int argc, char *argv[]) {
   GtkWidget *window;
   GdkScreen *screen;
   GdkVisual *visual;
+
+  char *currentDir = getcwd(NULL, 0);
+
+  sprintf(bar_uri, "file://%s/ui/ui.html", currentDir);
+  sprintf(web_ext_dir, "%s/jsc/bin", currentDir);
 
   printf("Bar started...\n");
   gtk_init(&argc, &argv);
@@ -72,7 +79,7 @@ int main(int argc, char *argv[]) {
                    G_CALLBACK(initialize_web_extensions_cb), NULL);
 
   // Load the bar interface in the web view
-  webkit_web_view_load_uri(web_view, BAR_URI);
+  webkit_web_view_load_uri(web_view, bar_uri);
 
   // Make sure that when the browser area becomes visible, it will get mouse
   // and keyboard events
