@@ -1,0 +1,71 @@
+@font-face {
+  src: "../fonts/Inter-Regular.otf";
+  font-family: "Inter";
+}
+
+:root {
+  --fg: #fff;
+  --bg: rgba(255, 255, 255, 0.1);
+  --bg-btn: rgba(10, 18, 29, 0.25);
+}
+
+body {
+  background-color: var(--bg);
+  font-family: "Inter";
+  font-weight: 500;
+  color: var(--fg);
+  margin: 0; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+body > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.current_workspace {
+  opacity: 1 !important;
+}
+
+.workspace_btn:first-child {
+  margin-left: 1.25rem;
+}
+
+.workspace_btn {
+  border-radius: 99rem;
+  background-color: var(--bg-btn);
+  color: var(--fg);
+  opacity: 0.5;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  cursor: default;
+}
+
+.workspace_btn:hover {
+  opacity: 0.75;
+}
+
+.new_workspace {
+  font-size: 0.75rem;
+  background-color: transparent;
+  color: var(--bg-btn);
+  opacity: 1 !important;
+}
+
+.time {
+  margin-right: 2rem;
+  border-radius: 4rem;
+  background-color: var(--bg-btn);
+  padding: 0.5rem 1rem;
+}

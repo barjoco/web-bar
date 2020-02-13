@@ -1,0 +1,1 @@
+gcc main.c -o run `pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.0 i3ipc-glib-1.0` && ./run
